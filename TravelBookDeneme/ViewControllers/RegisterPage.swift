@@ -48,7 +48,7 @@ class RegisterPage: UIViewController {
         latitude = String(touchedCoordinate.latitude)
         longitude = String(touchedCoordinate.longitude)
         
-
+        
         pin.coordinate = touchedCoordinate
         if nameOfPlace.text != nil && typeOfPlace.text != nil {
             pin.title = nameOfPlace.text
@@ -61,13 +61,6 @@ class RegisterPage: UIViewController {
         
         view.backgroundColor = .systemBackground
         let screenWidth = view.frame.size.width
-        
-        //        mapKit.frame = CGRect(x: 0, y: 280, width: screenWidth, height: 420)
-        //        let konum = CLLocationCoordinate2D(latitude: 41.0370175, longitude: 28.974792)
-        //        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-        //        let bolge = MKCoordinateRegion(center: konum, span: span)
-        //        mapKit.setRegion(bolge, animated: true)
-        //        view.addSubview(mapKit)
         
         saveButon.frame = CGRect(x: (screenWidth - 60 ) / 2, y: 750, width: 60, height: 30)
         saveButon.setTitle("Save", for: UIControl.State.normal)
@@ -86,7 +79,7 @@ class RegisterPage: UIViewController {
         view.addSubview(typeOfPlace)
     }
     
-    func location() {
+    private func location() {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
         locationManager.requestWhenInUseAuthorization()
@@ -114,12 +107,10 @@ extension RegisterPage : CLLocationManagerDelegate, MKMapViewDelegate {
         
         mapKit.frame = CGRect(x: 0, y: 280, width: screenWidth, height: 420)
         let konum = CLLocationCoordinate2D(latitude: enlem, longitude: boylam)
-        print(enlem)
-        print(boylam)
         let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
         let bolge = MKCoordinateRegion(center: konum, span: span)
         mapKit.setRegion(bolge, animated: true)
         view.addSubview(mapKit)
-
+        
     }
 }

@@ -14,7 +14,11 @@ class Repository {
     let context = appDelegate.persistentContainer.viewContext
     var travelList = BehaviorSubject<[Travel]>(value: [])
     
-    func save(nameOfPlace:String,typeOfPlace:String,latitudeOfPlace:String,longitudeOfPlace:String) {
+    func save (nameOfPlace:String,
+               typeOfPlace:String,
+               latitudeOfPlace:String,
+               longitudeOfPlace:String)
+    {
         
         let konum = Travel(context: context)
         
@@ -24,6 +28,19 @@ class Repository {
         konum.longitudeOfPlace = longitudeOfPlace
         
         appDelegate.saveContext()
+        
+        //Farklı kaydetme yöntemi Core Data
+//
+//        let konum = NSEntityDescription.insertNewObject(forEntityName: "Travel", into: context)
+//
+//        
+//        konum.setValue(nameOfPlace, forKey: "nameOfPlace")
+//        konum.setValue(typeOfPlace, forKey: "typeOfPalce")
+//        konum.setValue(latitudeOfPlace, forKey: "latitudeOfPlace")
+//        konum.setValue(longitudeOfPlace, forKey: "longitudeOfPlace")
+//        
+//        appDelegate.saveContext()
+        
         print("kayit oluştu")
     }
     
