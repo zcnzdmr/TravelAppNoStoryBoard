@@ -28,6 +28,7 @@ class RegisterPage: UIViewController {
         setUpUIObjects()
         location()
         tapGesture()
+        mapKit.delegate = self
     }
     
     func tapGesture() {
@@ -37,17 +38,21 @@ class RegisterPage: UIViewController {
         mapKit.addGestureRecognizer(gR)
     }
     
-    @objc func markLocation() {
+    @objc func markLocation(gesRecog:UILongPressGestureRecognizer) {
         
         let pin = MKPointAnnotation()
         
-        if let x = Double(latitude), let y = Double(longitude) {
-            let konum = CLLocationCoordinate2D(latitude: x, longitude: y)
-            pin.coordinate = konum
-            if nameOfPlace.text != nil && typeOfPlace.text != nil {
-                pin.title = nameOfPlace.text
-                pin.subtitle = typeOfPlace.text
-            }
+        let touchedLocation = gesRecog.location(in: self.mapKit)
+        let touchedCoordinate = mapKit.convert(touchedLocation, toCoordinateFrom: self.mapKit)
+        
+        latitude = String(touchedCoordinate.latitude)
+        longitude = String(touchedCoordinate.longitude)
+        
+
+        pin.coordinate = touchedCoordinate
+        if nameOfPlace.text != nil && typeOfPlace.text != nil {
+            pin.title = nameOfPlace.text
+            pin.subtitle = typeOfPlace.text
             mapKit.addAnnotation(pin)
         }
     }
@@ -95,7 +100,7 @@ class RegisterPage: UIViewController {
     }
 }
 
-extension RegisterPage : CLLocationManagerDelegate {
+extension RegisterPage : CLLocationManagerDelegate, MKMapViewDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
@@ -106,9 +111,6 @@ extension RegisterPage : CLLocationManagerDelegate {
         //mapkite konum verme ve span yani zoomunu ayarlama kısmı
         let enlem = theLastLocation.coordinate.latitude
         let boylam = theLastLocation.coordinate.longitude
-        
-        latitude = String(enlem)
-        longitude = String(boylam)
         
         mapKit.frame = CGRect(x: 0, y: 280, width: screenWidth, height: 420)
         let konum = CLLocationCoordinate2D(latitude: enlem, longitude: boylam)

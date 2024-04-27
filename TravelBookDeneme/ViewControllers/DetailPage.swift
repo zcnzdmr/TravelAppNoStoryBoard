@@ -51,7 +51,7 @@ class DetailPage: UIViewController {
         view.backgroundColor = .systemBackground
         
         
-        mapKit.frame = CGRect(x: 0, y: 350, width: screenWidth, height: 380)
+        mapKit.frame = CGRect(x: 0, y: 310, width: screenWidth, height: 480)
         view.addSubview(mapKit)
         
         //mapkit konum gönderme ve point(pin) ekleme
@@ -69,11 +69,11 @@ class DetailPage: UIViewController {
         }
 
 
-        name.frame = CGRect(x: (screenWidth - 340) / 2, y: 180, width: 340, height: 30)
+        name.frame = CGRect(x: (screenWidth - 340) / 2, y: 150, width: 340, height: 30)
         name.layer.borderWidth = 0.4
         view.addSubview(name)
         
-        type.frame = CGRect(x: (screenWidth - 340) / 2, y: 240, width: 340, height: 30)
+        type.frame = CGRect(x: (screenWidth - 340) / 2, y: 210, width: 340, height: 30)
         type.layer.borderWidth = 0.4
         view.addSubview(type)
         
