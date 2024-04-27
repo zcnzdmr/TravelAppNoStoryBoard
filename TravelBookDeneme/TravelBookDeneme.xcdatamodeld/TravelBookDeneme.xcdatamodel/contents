@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23E224" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Travel" representedClassName="Travel" syncable="YES" codeGenerationType="class">
+        <attribute name="latitudeOfPlace" optional="YES" attributeType="String"/>
+        <attribute name="longitudeOfPlace" optional="YES" attributeType="String"/>
+        <attribute name="nameOfPlace" optional="YES" attributeType="String"/>
+        <attribute name="typeOfPalce" optional="YES" attributeType="String"/>
+    </entity>
+</model>
