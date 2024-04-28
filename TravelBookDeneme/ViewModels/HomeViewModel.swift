@@ -18,7 +18,7 @@ class HomeViewModel {
         fetchFunc()
     }
     
-    func fetchFunc() {
+    @objc func fetchFunc() {
         repoObject.fetchFunc()
     }
     

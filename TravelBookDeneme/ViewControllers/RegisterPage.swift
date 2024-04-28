@@ -28,7 +28,7 @@ class RegisterPage: UIViewController {
         setUpUIObjects()
         location()
         tapGesture()
-        mapKit.delegate = self
+        
     }
     
     func tapGesture() {
@@ -90,7 +90,11 @@ class RegisterPage: UIViewController {
         if let x = nameOfPlace.text , let y = typeOfPlace.text {
             viewModel.save(nameOfPlace: x, typeOfPlace: y, latitudeOfPlace: latitude, longitudeOfPlace: longitude)
         }
+//        self.navigationController?.show(HomePage(), sender: nil)
+        NotificationCenter.default.post(name: NSNotification.Name("backTo"), object: nil)
+        self.navigationController?.popViewController(animated: true)
     }
+
 }
 
 extension RegisterPage : CLLocationManagerDelegate, MKMapViewDelegate {
@@ -102,6 +106,7 @@ extension RegisterPage : CLLocationManagerDelegate, MKMapViewDelegate {
         let theLastLocation = locations[locations.count-1]
         
         //mapkite konum verme ve span yani zoomunu ayarlama kısmı
+        
         let enlem = theLastLocation.coordinate.latitude
         let boylam = theLastLocation.coordinate.longitude
         
@@ -110,7 +115,9 @@ extension RegisterPage : CLLocationManagerDelegate, MKMapViewDelegate {
         let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
         let bolge = MKCoordinateRegion(center: konum, span: span)
         mapKit.setRegion(bolge, animated: true)
+        mapKit.delegate = self
         view.addSubview(mapKit)
         
     }
+    
 }

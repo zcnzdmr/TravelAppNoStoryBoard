@@ -38,20 +38,33 @@ class Repository {
 //        konum.setValue(typeOfPlace, forKey: "typeOfPalce")
 //        konum.setValue(latitudeOfPlace, forKey: "latitudeOfPlace")
 //        konum.setValue(longitudeOfPlace, forKey: "longitudeOfPlace")
-//        
+//        konum.setValue(UUID(),forKey:"id")  (bunu kullanmadık)
 //        appDelegate.saveContext()
         
         print("kayit oluştu")
     }
     
-    func fetchFunc() {
+    @objc func fetchFunc() {
+        
+        // Farklı bir CoreData veri okuma şekli
+        let fetchNesnei = NSFetchRequest<NSFetchRequestResult>(entityName: "Travel")
+        fetchNesnei.returnsObjectsAsFaults = false
         
         do {
-            let list = try context.fetch(Travel.fetchRequest()) as? [Travel] ?? []
-            travelList.onNext(list)
-        }catch{
-            print("Error \(error.localizedDescription)")
+            let results = try context.fetch(fetchNesnei)
+            if let list = results as? [Travel] {
+                travelList.onNext(list)
+            }
+        }catch {
+            print("hata")
         }
+        
+//        do {
+//            let list = try context.fetch(Travel.fetchRequest()) as? [Travel] ?? []
+//            travelList.onNext(list)
+//        }catch{
+//            print("Error \(error.localizedDescription)")
+//        }
         
     }
 

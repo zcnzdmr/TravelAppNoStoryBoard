@@ -30,6 +30,11 @@ class HomePage: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+//        viewModel.fetchFunc()
+        NotificationCenter.default.addObserver(self, selector: #selector(fetch), name: NSNotification.Name("backTo"), object: nil)
+    }
+    
+    @objc func fetch() {
         viewModel.fetchFunc()
     }
     
@@ -77,4 +82,5 @@ extension HomePage : UITableViewDelegate,UITableViewDataSource {
         passToDetail(travel: travelListesi[indexPath.row])
     }
 }
+
 
