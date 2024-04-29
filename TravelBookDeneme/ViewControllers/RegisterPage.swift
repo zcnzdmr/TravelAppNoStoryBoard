@@ -92,6 +92,7 @@ class RegisterPage: UIViewController {
         }
 //        self.navigationController?.show(HomePage(), sender: nil)
         NotificationCenter.default.post(name: NSNotification.Name("backTo"), object: nil)
+        
         self.navigationController?.popViewController(animated: true)
     }
 

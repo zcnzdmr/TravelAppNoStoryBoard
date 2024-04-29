@@ -115,10 +115,61 @@ extension DetailPage : MKMapViewDelegate {
             let butonPin = UIButton(type: UIButton.ButtonType.detailDisclosure)
             pinView?.rightCalloutAccessoryView = butonPin
             
+//            let buton2 = UIButton(type: UIButton.ButtonType.close)
+//            pinView?.leftCalloutAccessoryView = buton2
+            
         } else {
             pinView?.annotation = annotation
         }
         
+//        pinView?.image = UIImage(named: "aaaa")
         return pinView
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        
+        if let k = self.gelcekNesne {
+            let namex = k.nameOfPlace
+            let alert = UIAlertController(title: "\(namex!)", message: "rota oluşturulsun mu?", preferredStyle: UIAlertController.Style.actionSheet)
+            present(alert, animated: true, completion: nil)
+            
+            
+            let yesx = UIAlertAction(title: "YES", style: UIAlertAction.Style.default) { UIAlertAction in
+                
+                if let travelNesnesi2 = self.gelcekNesne {
+                    
+                    if let x = Double(travelNesnesi2.latitudeOfPlace!),
+                       let y = Double(travelNesnesi2.longitudeOfPlace!) {
+                        
+                        let requestLocation = CLLocation(latitude: x, longitude: y)
+                        
+                        
+//                        CLGeocoder().geocodeAddressString(<#T##addressString: String##String#>, completionHandler: <#T##CLGeocodeCompletionHandler##CLGeocodeCompletionHandler##([CLPlacemark]?, Error?) -> Void#>)
+                        
+                        CLGeocoder().reverseGeocodeLocation(requestLocation) { (placemarks,error) in
+                            
+                            if let placeMark = placemarks {
+                                if placeMark.count > 0 {
+                                    let newPlaceMark = MKPlacemark(placemark: placeMark[0])
+                                    let item = MKMapItem(placemark: newPlaceMark)
+                                    item.name = travelNesnesi2.nameOfPlace
+                                    let launchOption = [MKLaunchOptionsDirectionsModeKey:MKLaunchOptionsDirectionsModeDriving]
+                                    
+                                    item.openInMaps(launchOptions: launchOption)
+                                }else {
+                                    print("No Matching address found")
+                                }
+                            }
+                        }
+                    }
+                }
+                
+            }
+            alert.addAction(yesx)
+            
+            let nox = UIAlertAction(title: "NO", style: UIAlertAction.Style.destructive)
+            alert.addAction(nox)
+            
+        }
     }
 }
